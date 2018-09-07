@@ -12,6 +12,7 @@
 		"Decred Testnet": "1.6.2",
 		"DigiByte": "1.6.0",
 		"Dogecoin": "1.5.2",
+		"Flashcoin": "1.6.2",
 		"Fujicoin": "1.6.1",
 		"Groestlcoin": "1.6.2",
 		"Groestlcoin Testnet": "1.6.2",
@@ -36,6 +37,7 @@
 		"Dash": "2.0.5",
 		"DigiByte": "2.0.5",
 		"Dogecoin": "2.0.5",
+		"Flashcoin": "2.0.5",
 		"Fujicoin": "2.0.5",
 		"Groestlcoin": "2.0.8",
 		"Groestlcoin Testnet": "2.0.8",
@@ -58,6 +60,7 @@
 		"Bgold": true,
 		"Dash": true,
 		"Litecoin": true,
+		"Flashcoin": true,
 		"Zcash": true
 	},
 	"webwallet": {
@@ -71,6 +74,7 @@
 		"Decred Testnet": true,
 		"DigiByte": true,
 		"Dogecoin": true,
+		"Flashcoin": true,
 		"Fujicoin": true,
 		"Groestlcoin": true,
 		"Groestlcoin Testnet": true,
