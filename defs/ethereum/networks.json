@@ -18,7 +18,7 @@
   {
     "chain_id": 3,
     "slip44": 1,
-    "shortcut": "tETH",
+    "shortcut": "tROP",
     "name": "Ethereum Testnet Ropsten",
     "rskip60": false,
     "url": "https://www.ethereum.org"
@@ -26,7 +26,7 @@
   {
     "chain_id": 4,
     "slip44": 1,
-    "shortcut": "tETH",
+    "shortcut": "tRIN",
     "name": "Ethereum Testnet Rinkeby",
     "rskip60": false,
     "url": "https://www.ethereum.org"
@@ -35,7 +35,7 @@
     "chain_id": 8,
     "slip44": 108,
     "shortcut": "UBQ",
-    "name": "UBIQ",
+    "name": "Ubiq",
     "rskip60": false,
     "url": "https://ubiqsmart.com"
   },
@@ -74,7 +74,7 @@
   {
     "chain_id": 42,
     "slip44": 1,
-    "shortcut": "tETH",
+    "shortcut": "tKOV",
     "name": "Ethereum Testnet Kovan",
     "rskip60": false,
     "url": "https://www.ethereum.org"
@@ -120,6 +120,14 @@
     "url": "https://callisto.network"
   },
   {
+    "chain_id": 1620,
+    "slip44": 1620,
+    "shortcut": "ATH",
+    "name": "Atheios",
+    "rskip60": false,
+    "url": "https://atheios.com"
+  },
+  {
     "chain_id": 1987,
     "slip44": 1987,
     "shortcut": "EGEM",
@@ -134,5 +142,37 @@
     "name": "Ethersocial Network",
     "rskip60": false,
     "url": "https://ethersocial.org"
+  },
+  {
+    "chain_id": 200625,
+    "slip44": 200625,
+    "shortcut": "AKA",
+    "name": "Akroma",
+    "rskip60": false,
+    "url": "https://akroma.io"
+  },
+  {
+    "chain_id": 7762959,
+    "slip44": 184,
+    "shortcut": "MUSIC",
+    "name": "Musicoin",
+    "rskip60": false,
+    "url": "https://musicoin.org"
+  },
+  {
+    "chain_id": 1313114,
+    "slip44": 1313114,
+    "shortcut": "ETHO",
+    "name": "Ether-1",
+    "rskip60": false,
+    "url": "https://ether1.org"
+  },
+  {
+    "chain_id": 3125659152,
+    "slip44": 164,
+    "shortcut": "PIRL",
+    "name": "Pirl",
+    "rskip60": false,
+    "url": "https://pirl.io"
   }
 ]

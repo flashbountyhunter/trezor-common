@@ -1,4 +1,5 @@
 syntax = "proto2";
+package hw.trezor.messages.debug;
 
 // Sugar for easier handling in Java
 option java_package = "com.satoshilabs.trezor.lib.protobuf";
@@ -8,6 +9,7 @@ import "messages-common.proto";
 
 /**
  * Request: "Press" the button on the device
+ * @start
  * @next Success
  */
 message DebugLinkDecision {
@@ -18,6 +20,7 @@ message DebugLinkDecision {
 
 /**
  * Request: Computer asks for device state
+ * @start
  * @next DebugLinkState
  */
 message DebugLinkGetState {
@@ -25,30 +28,32 @@ message DebugLinkGetState {
 
 /**
  * Response: Device current state
- * @prev DebugLinkGetState
+ * @end
  */
 message DebugLinkState {
-    optional bytes layout = 1;                  // raw buffer of display
-    optional string pin = 2;                    // current PIN, blank if PIN is not set/enabled
-    optional string matrix = 3;                 // current PIN matrix
-    optional string mnemonic = 4;               // current BIP-39 mnemonic
-    optional HDNodeType node = 5;               // current BIP-32 node
-    optional bool passphrase_protection = 6;    // is node/mnemonic encrypted using passphrase?
-    optional string reset_word = 7;             // word on device display during ResetDevice workflow
-    optional bytes reset_entropy = 8;           // current entropy during ResetDevice workflow
-    optional string recovery_fake_word = 9;     // (fake) word on display during RecoveryDevice workflow
-    optional uint32 recovery_word_pos = 10;     // index of mnemonic word the device is expecting during RecoveryDevice workflow
-    optional uint32 reset_word_pos = 11;        // index of mnemonic word the device is expecting during ResetDevice workflow
+    optional bytes layout = 1;                              // raw buffer of display
+    optional string pin = 2;                                // current PIN, blank if PIN is not set/enabled
+    optional string matrix = 3;                             // current PIN matrix
+    optional string mnemonic = 4;                           // current BIP-39 mnemonic
+    optional hw.trezor.messages.common.HDNodeType node = 5; // current BIP-32 node
+    optional bool passphrase_protection = 6;                // is node/mnemonic encrypted using passphrase?
+    optional string reset_word = 7;                         // word on device display during ResetDevice workflow
+    optional bytes reset_entropy = 8;                       // current entropy during ResetDevice workflow
+    optional string recovery_fake_word = 9;                 // (fake) word on display during RecoveryDevice workflow
+    optional uint32 recovery_word_pos = 10;                 // index of mnemonic word the device is expecting during RecoveryDevice workflow
+    optional uint32 reset_word_pos = 11;                    // index of mnemonic word the device is expecting during ResetDevice workflow
 }
 
 /**
  * Request: Ask device to restart
+ * @start
  */
 message DebugLinkStop {
 }
 
 /**
  * Response: Device wants host to log event
+ * @ignore
  */
 message DebugLinkLog {
     optional uint32 level = 1;
@@ -58,6 +63,7 @@ message DebugLinkLog {
 
 /**
  * Request: Read memory from device
+ * @start
  * @next DebugLinkMemory
  */
 message DebugLinkMemoryRead {
@@ -67,7 +73,7 @@ message DebugLinkMemoryRead {
 
 /**
  * Response: Device sends memory back
- * @prev DebugLinkMemoryRead
+ * @end
  */
 message DebugLinkMemory {
     optional bytes memory = 1;
@@ -76,6 +82,9 @@ message DebugLinkMemory {
 /**
  * Request: Write memory to device.
  * WARNING: Writing to the wrong location can irreparably break the device.
+ * @start
+ * @next Success
+ * @next Failure
  */
 message DebugLinkMemoryWrite {
     optional uint32 address = 1;
@@ -86,6 +95,9 @@ message DebugLinkMemoryWrite {
 /**
  * Request: Erase block of flash on device
  * WARNING: Writing to the wrong location can irreparably break the device.
+ * @start
+ * @next Success
+ * @next Failure
  */
 message DebugLinkFlashErase {
     optional uint32 sector = 1;

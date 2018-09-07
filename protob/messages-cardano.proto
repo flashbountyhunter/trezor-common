@@ -1,4 +1,5 @@
 syntax = "proto2";
+package hw.trezor.messages.cardano;
 
 // Sugar for easier handling in Java
 option java_package = "com.satoshilabs.trezor.lib.protobuf";
@@ -8,6 +9,7 @@ import "messages-common.proto";
 
 /**
  * Request: Ask device for Cardano address
+ * @start
  * @next CardanoAddress
  * @next Failure
  */
@@ -18,72 +20,45 @@ message CardanoGetAddress {
 
 /**
  * Request: Ask device for Cardano address
- * @next CardanoAddress
- * @next Failure
+ * @end
  */
 message CardanoAddress {
     optional string address = 1;    // Base58 cardano address
 }
 
 /**
- * Request: Ask device to sign Cardano message
- * @next CardanoMessageSignature
- * @next Failure
- */
-message CardanoSignMessage {
-    repeated uint32 address_n = 1;  // BIP-32 path to derive the key from master node
-    optional bytes message = 2;     // message to be signed
-}
-
-/**
  * Request: Ask device for public key corresponding to address_n path
+ * @start
  * @next CardanoPublicKey
  * @next Failure
  */
 message CardanoGetPublicKey {
     repeated uint32 address_n = 1;  // BIP-32 path to derive the key from master node
+    optional bool show_display = 2; // optionally show on display before sending the result
 }
 
 /**
  * Response: Contains public key derived from device private seed
- * @prev CardanoGetPublicKey
+ * @end
  */
 message CardanoPublicKey {
-    optional string xpub = 1;               // Xpub key
-    optional HDNodeType node = 2;           // BIP-32 public node
-    optional string root_hd_passphrase = 3; // HD passphrase for root in hex format
-}
-
-/**
- * Request: Ask device to verify Cardano message
- * @next Success
- * @next Failure
- */
-message CardanoVerifyMessage {
-    optional bytes public_key = 1;  // Public key which was used to sign message
-    optional bytes signature = 2;   // signature to verify
-    optional bytes message = 3;     // message to verify
-}
-
-/**
- * Response: Signed Cardano message
- * @prev CardanoSignMessage
- */
-message CardanoMessageSignature {
-    optional bytes public_key = 1;  // public key which was used to sign mesage
-    optional bytes signature = 2;   // signature of the message
+    optional string xpub = 1;                               // Xpub key
+    optional hw.trezor.messages.common.HDNodeType node = 2; // BIP-32 public node
+    optional string root_hd_passphrase = 3;                 // HD passphrase for root in hex format
 }
 
 /**
  * Request: Ask device to sign Cardano transaction
- * @next CardanoSignedTransaction
+ * @start
+ * @next CardanoSignedTx
  * @next CardanoTxRequest
  * @next Failure
  */
-message CardanoSignTransaction {
+message CardanoSignTx {
     repeated CardanoTxInputType inputs = 1;     // inputs to be used in transaction
     repeated CardanoTxOutputType outputs = 2;   // outputs to be used in transaction
     optional uint32 transactions_count = 3;     // transactions count
+    optional uint32 network = 4;                // network number
     /**
      * Structure representing cardano transaction input
      */
@@ -106,7 +81,6 @@ message CardanoSignTransaction {
 /**
  * Response: Serialised signed cardano transaction if tx_index is not specified.
  *              If tx_index is specified, trezor will wait for transaction
- * @prev CardanoSignTransaction
  * @next CardanoTxAck
  */
 message CardanoTxRequest {
@@ -116,19 +90,19 @@ message CardanoTxRequest {
 }
 
 /**
- * Response: Serialised signed cardano transaction
- * @prev CardanoSignTransaction
- */
-message CardanoSignedTransaction {
-    optional bytes tx_hash = 1; // hash of the signed transaction
-    optional bytes tx_body = 2; // serialised body of the signed transaction
-}
-
-/**
  * Request: Reported transaction data
- * @prev CardanoTxRequest
+ * @next CardanoSignedTx
  * @next CardanoTxRequest
  */
 message CardanoTxAck {
     optional bytes transaction = 1;
+}
+
+/**
+ * Response: Serialised signed cardano transaction
+ * @end
+ */
+message CardanoSignedTx {
+    optional bytes tx_hash = 1; // hash of the signed transaction
+    optional bytes tx_body = 2; // serialised body of the signed transaction
 }
