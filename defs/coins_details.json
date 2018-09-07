@@ -373,8 +373,8 @@
             },
             "name": "Flashcoin",
             "shortcut": "FLASH",
-            "t1_enabled": "no",
-            "t2_enabled": "no",
+            "t1_enabled": "yes",
+            "t2_enabled": "yes",
             "type": "coin"
         },
         "coin:FTC": {
